@@ -1,9 +1,15 @@
-import React, { Component } from "react";
-import { Input } from "react-native-ui-kitten";
+import React, {Component} from 'react';
 
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {PERMISSIONS, request} from 'react-native-permissions';
 
-import { styles } from './styles'
+import {styles} from './styles';
+
+request(
+  Platform.select({
+    android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+  }),
+);
 
 export default class MapsScreen extends Component {
   constructor(props) {
@@ -15,7 +21,7 @@ export default class MapsScreen extends Component {
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
+    longitudeDelta: 0.0421,
   };
 
   render() {
@@ -25,9 +31,6 @@ export default class MapsScreen extends Component {
         style={styles.map}
         initialRegion={this.region}
       />,
-
-      <Input style={styles.searchbar} placeholder="Search..." />
     ];
   }
 }
-

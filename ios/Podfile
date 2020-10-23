@@ -1,6 +1,21 @@
 source 'https://cdn.cocoapods.org/'
 platform :ios, '9.0'
+
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+# # Convert all permission pods into static libraries
+# pre_install do |installer|
+#   installer.pod_targets.each do |pod|
+#     if pod.name.eql?('RNPermissions') || pod.name.start_with?('Permission-')
+#       def pod.build_type;
+#         # Uncomment one line depending on your CocoaPods version
+#         # Pod::BuildType.static_library # >= 1.9
+#         # Pod::Target::BuildType.static_library # < 1.9
+#       end
+#     end
+#   end
+# end
+
 def add_flipper_pods!
   version = '~> 0.33.1'
   pod 'FlipperKit', version, :configuration => 'Debug'
@@ -22,7 +37,7 @@ def flipper_post_install(installer)
 end
 
 target 'ccpa_demo_21860' do
-  # Pods for ccpa_demo_21860
+  # Pods for ccpa_demo_21860  
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -55,6 +70,8 @@ target 'ccpa_demo_21860' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'Permission-LocationWhenInUse', :path => "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
 
   target 'ccpa_demo_21860Tests' do
     inherit! :complete
